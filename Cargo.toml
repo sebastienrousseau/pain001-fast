@@ -1,0 +1,38 @@
+[package]
+name = "pain001-fast"
+version = "0.0.1"
+edition = "2021"
+authors = ["Sebastien Rousseau <sebastian.rousseau@gmail.com>"]
+description = "High-throughput native validation and serialization core for the pain001 ISO 20022 ecosystem."
+license = "Apache-2.0 OR MIT"
+readme = "README.md"
+repository = "https://github.com/sebastienrousseau/pain001-fast"
+homepage = "https://pain001.com"
+keywords = ["iso20022", "pain001", "iban", "bic", "payments"]
+categories = ["finance", "parsing", "concurrency"]
+
+[lib]
+name = "pain001_fast"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+pyo3 = "0.29.0"
+rayon = "1.10"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+unicode-normalization = "0.1"
+
+[features]
+default = ["extension-module"]
+extension-module = ["pyo3/extension-module"]
+
+[dev-dependencies]
+criterion = "0.5"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+strip = true

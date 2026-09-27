@@ -1,0 +1,16 @@
+target/
+dist/
+build/
+*.so
+*.dylib
+*.pyd
+*.whl
+*.egg-info/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+__pycache__/
+*.pyc
+.DS_Store
+.cargo-ok

@@ -1,0 +1,71 @@
+# Copyright (C) 2023-2026 Pain001. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+
+[build-system]
+requires = ["maturin>=1.5,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "pain001-fast"
+version = "0.0.1"
+description = "High-throughput native validation and serialization core for the pain001 ISO 20022 ecosystem."
+authors = [{name = "Sebastien Rousseau", email = "sebastian.rousseau@gmail.com"}]
+license = {text = "Apache-2.0 OR MIT"}
+readme = "README.md"
+requires-python = ">=3.10,<4"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: Apache Software License",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Rust",
+    "Topic :: Office/Business :: Financial",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=5.0.0",
+    "pytest-benchmark>=4.0.0",
+    "ruff>=0.3.0",
+    "mypy>=1.9.0",
+]
+
+[project.urls]
+Homepage = "https://pain001.com"
+Documentation = "https://pain001.com"
+Repository = "https://github.com/sebastienrousseau/pain001-fast"
+Issues = "https://github.com/sebastienrousseau/pain001-fast/issues"
+Changelog = "https://github.com/sebastienrousseau/pain001-fast/blob/main/CHANGELOG.md"
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+module-name = "pain001_fast._pain001_fast"
+python-source = "python"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=pain001_fast --cov-branch --cov-report=term-missing"
+
+[tool.coverage.run]
+branch = true
+source = ["pain001_fast"]
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true
+
+[tool.ruff]
+line-length = 79
+target-version = "py310"
+
+[tool.mypy]
+strict = true
+python_version = "3.10"
