@@ -2,6 +2,7 @@
 name = "pain001-fast"
 version = "0.0.1"
 edition = "2021"
+rust-version = "1.89"
 authors = ["Sebastien Rousseau <sebastian.rousseau@gmail.com>"]
 description = "High-throughput native validation and serialization core for the pain001 ISO 20022 ecosystem."
 license = "Apache-2.0 OR MIT"
