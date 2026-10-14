@@ -7,6 +7,15 @@ All notable changes to `pain001-fast` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2] - Unreleased
+
+### Changed
+
+- **Breaking: the MSRV is now declared as Rust 1.89**, as `rust-version` in
+  `Cargo.toml`, one floor shared with the maintainer's other Rust
+  crates. The README and DEVELOPMENT.md said "Rust 1.70+", which
+  nothing checked; they now name 1.89.
+
 ## [0.0.1] - 2026-09-27
 
 ### Added
