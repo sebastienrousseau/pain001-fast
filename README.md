@@ -61,7 +61,7 @@
 pip install pain001-fast
 ```
 
-For source builds, ensure Rust 1.70+ and `maturin` are installed:
+For source builds, ensure Rust 1.89+ and `maturin` are installed:
 
 ```bash
 maturin develop --release
@@ -72,7 +72,8 @@ maturin develop --release
 ## Requirements
 
 - Python 3.10 or newer.
-- Rust 1.70 or newer (for source compilation).
+- Rust 1.89 or newer (for source compilation), as declared by
+  `rust-version` in `Cargo.toml`.
 - Supported platforms: Linux (x86_64, aarch64, musl), macOS (Apple Silicon, Intel), Windows (x86_64).
 
 ---
