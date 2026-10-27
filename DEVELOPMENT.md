@@ -5,7 +5,7 @@
 ## Prerequisites
 
 - Rust 1.89+ (`rust-version` in `Cargo.toml`)
-- Python 3.10+
+- Python 3.11+
 - `maturin` 1.5+
 
 ## Setup & Build
