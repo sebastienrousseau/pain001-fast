@@ -7,7 +7,7 @@ All notable changes to `pain001-fast` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.2] - Unreleased
+## [0.0.2] - 2026-10-27
 
 ### Changed
 
@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `>=3.11,<4`, the 3.10 classifier and CI job are gone, and ruff and
   mypy target 3.11. Python 3.10 reaches end of life in October 2026,
   and the pain001 family drops it together.
+- Dependencies: `pyo3` 0.29.2 to 0.30.1, `unicode-normalization`
+  0.1.25 to 0.1.26, and the dev-only `criterion` 0.5.1 to 0.8.2. CI
+  moves to `actions/setup-python` 7.1.0 and `Swatinem/rust-cache`
+  2.9.3.
 
 ### Added
 
