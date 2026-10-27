@@ -15,13 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Cargo.toml`, one floor shared with the maintainer's other Rust
   crates. The README and DEVELOPMENT.md said "Rust 1.70+", which
   nothing checked; they now name 1.89.
+- **Breaking: Python 3.11 is now the minimum.** `requires-python` is
+  `>=3.11,<4`, the 3.10 classifier and CI job are gone, and ruff and
+  mypy target 3.11. Python 3.10 reaches end of life in October 2026,
+  and the pain001 family drops it together.
 
 ### Added
 
 - CI on every pull request and push to `main`: rustfmt, clippy with
   warnings denied and the Rust tests on Rust 1.89 and stable, then ruff,
   mypy and pytest (100% line and branch coverage) against the built
-  extension on Python 3.10 to 3.13. A DCO check and Dependabot for
+  extension on Python 3.11 to 3.13. A DCO check and Dependabot for
   cargo and GitHub Actions come with it.
 
 ### Fixed

@@ -12,7 +12,7 @@ description = "High-throughput native validation and serialization core for the 
 authors = [{name = "Sebastien Rousseau", email = "sebastian.rousseau@gmail.com"}]
 license = {text = "Apache-2.0 OR MIT"}
 readme = "README.md"
-requires-python = ">=3.10,<4"
+requires-python = ">=3.11,<4"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Financial and Insurance Industry",
@@ -20,7 +20,6 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -64,8 +63,8 @@ show_missing = true
 
 [tool.ruff]
 line-length = 79
-target-version = "py310"
+target-version = "py311"
 
 [tool.mypy]
 strict = true
-python_version = "3.10"
+python_version = "3.11"

@@ -16,7 +16,7 @@
   <a href="docs/index.md"><img src="https://img.shields.io/badge/docs-source?style=for-the-badge&labelColor=555555&logo=readthedocs" alt="Docs" /></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/sebastienrousseau/pain001-fast"><img src="https://img.shields.io/ossf-scorecard/github.com/sebastienrousseau/pain001-fast?style=for-the-badge&label=OpenSSF%20Scorecard&logo=openssf" alt="OpenSSF Scorecard" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue.svg?style=for-the-badge" alt="License: Apache-2.0 OR MIT" /></a>
-  <a href="https://github.com/sebastienrousseau/pain001-fast/blob/main/docs/POLICIES.md"><img src="https://img.shields.io/badge/Python-3.10%2B-93450a.svg?style=for-the-badge&logo=python" alt="Python 3.10 or newer" /></a>
+  <a href="https://github.com/sebastienrousseau/pain001-fast/blob/main/docs/POLICIES.md"><img src="https://img.shields.io/badge/Python-3.11%2B-93450a.svg?style=for-the-badge&logo=python" alt="Python 3.11 or newer" /></a>
 </p>
 
 ---
@@ -71,7 +71,7 @@ maturin develop --release
 
 ## Requirements
 
-- Python 3.10 or newer.
+- Python 3.11 or newer.
 - Rust 1.89 or newer (for source compilation), as declared by
   `rust-version` in `Cargo.toml`.
 - Supported platforms: Linux (x86_64, aarch64, musl), macOS (Apple Silicon, Intel), Windows (x86_64).
