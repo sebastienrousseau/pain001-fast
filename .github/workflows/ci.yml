@@ -1,0 +1,76 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+#
+# The quality gate from AGENTS.md, on every pull request into main and
+# every push to main: rustfmt, clippy with warnings denied, the Rust
+# tests on the declared MSRV and on stable, and the Python tests with
+# the 100% line and branch coverage floor against the built extension.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust:
+    name: Rust ${{ matrix.toolchain }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: ["1.89", stable]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # master
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          components: clippy, rustfmt
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+      - name: rustfmt
+        run: cargo fmt --all -- --check
+      - name: clippy
+        run: cargo clippy --all-targets --locked -- -D warnings
+      - name: Rust tests
+        run: |
+          libdir="$(python3 -c 'import sysconfig; print(sysconfig.get_config_var("LIBDIR"))')"
+          RUSTFLAGS="-C link-arg=-Wl,-rpath,$libdir" cargo test --no-default-features --locked
+
+  python:
+    name: Python ${{ matrix.python }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # master
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+      - name: Build the extension and the dev extra into a virtualenv
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install --quiet "maturin>=1.5,<2.0"
+          VIRTUAL_ENV="$PWD/.venv" .venv/bin/maturin develop --release --extras dev
+      - name: ruff
+        run: .venv/bin/ruff check .
+      - name: mypy
+        run: .venv/bin/mypy python
+      - name: pytest (100% line and branch coverage)
+        run: .venv/bin/pytest tests/
