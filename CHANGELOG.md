@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Audit all nine suite repositories and their publication channels daily and after publishing workflows, using the shared checker pinned to a core commit.
 
+### Fixed
+
+- Describe the core's automatic native validation helpers accurately and link to the current source and wheel release.
+
 ## [0.0.83] - 2026-11-09
 
 ### Changed
