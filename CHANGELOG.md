@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.84] - 2026-11-09
+
 ### Added
 
 - Audit all nine suite repositories and their publication channels daily and after publishing workflows, using the shared checker pinned to a core commit.
@@ -16,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Describe the core's automatic native validation helpers accurately and link to the current source and wheel release.
+
+### Changed
+
+- Release 0.0.84 with the suite. Native validation and the Python API retain their existing behavior.
 
 ## [0.0.83] - 2026-11-09
 
