@@ -6,6 +6,8 @@
 from __future__ import annotations
 
 import time
+import tomllib
+from pathlib import Path
 
 import pytest
 from pain001_fast import (
@@ -22,7 +24,10 @@ from pain001_fast import (
 
 
 def test_version() -> None:
-    assert __version__ == "0.0.83"
+    """The Python module reports Cargo's authoritative release version."""
+    manifest = Path(__file__).resolve().parents[1] / "Cargo.toml"
+    expected = tomllib.loads(manifest.read_text())["package"]["version"]
+    assert __version__ == expected
 
 
 def test_validate_iban_valid() -> None:

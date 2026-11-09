@@ -7,6 +7,25 @@ All notable changes to `pain001-fast` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [0.0.84] - 2026-11-09
+
+### Added
+
+- Audit all nine suite repositories and their publication channels daily and after publishing workflows, using the shared checker pinned to a core commit.
+
+### Fixed
+
+- Describe the core's automatic native validation helpers accurately and link to the current source and wheel release.
+- `make test` passes `PYO3_PYTHON` with the rpath, so the Rust tests
+  link the same libpython the rpath names; with a venv on a different
+  Python first on `PATH` they aborted with "Library not loaded".
+
+### Changed
+
+- Release 0.0.84 with the suite. Native validation and the Python API retain their existing behavior.
+
 ## [0.0.83] - 2026-11-09
 
 ### Changed
