@@ -1,12 +1,24 @@
 # Copyright (C) 2023-2026 Pain001. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
-.PHONY: all build check test lint format clean
+.PHONY: all build check test lint type versions sec format clean
 
 all: build test
 
 build:
-	uv tool run maturin develop --release
+	uv sync --extra dev --locked
+
+check: lint type test versions
+
+type:
+	mypy python/pain001_fast
+
+versions:
+	python3 scripts/check_release.py
+	python3 scripts/release_notes.py check
+
+sec:
+	cargo audit
 
 # The Rust tests link libpython (pyo3 without extension-module), so the
 # test binary needs an rpath to the library directory of the Python that

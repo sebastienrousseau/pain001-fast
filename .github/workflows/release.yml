@@ -1,0 +1,112 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+name: Release
+on:
+  push:
+    tags: ['v*.*.*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  wheels:
+    name: Wheel (${{ matrix.name }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: linux-x86_64
+            os: ubuntu-24.04
+            args: --compatibility linux
+          - name: linux-aarch64
+            os: ubuntu-24.04-arm
+            args: --compatibility linux
+          - name: macos-arm64
+            os: macos-15
+            args: ''
+          - name: macos-x86_64
+            os: macos-15-intel
+            args: ''
+          - name: windows-x86_64
+            os: windows-2025
+            args: ''
+    runs-on: ${{ matrix.os }}
+    env:
+      MACOSX_DEPLOYMENT_TARGET: '11.0'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: '3.11'
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0
+      - name: Install the pinned wheel backend
+        run: python -c "import pathlib,subprocess,sys,tomllib; subprocess.check_call([sys.executable,'-m','pip','install',*tomllib.loads(pathlib.Path('pyproject.toml').read_text())['build-system']['requires']])"
+      - run: python scripts/check_release.py
+      - run: maturin build --release --locked --out dist ${{ matrix.args }}
+      - name: Install and smoke-test the built wheel
+        run: |
+          python -c "import glob,subprocess,sys; subprocess.check_call([sys.executable,'-m','pip','install',*glob.glob('dist/*.whl')])"
+          python -c "import pathlib,tomllib,pain001_fast as p; expected=tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version']; assert p.__version__ == expected; assert p.validate_iban('DE89370400440532013000'); assert p.validate_bic('DEUTDEFF')"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: wheel-${{ matrix.name }}
+          path: dist/*.whl
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: '3.12'
+      - name: Install the pinned source backend
+        run: python -c "import pathlib,subprocess,sys,tomllib; subprocess.check_call([sys.executable,'-m','pip','install',*tomllib.loads(pathlib.Path('pyproject.toml').read_text())['build-system']['requires']])"
+      - run: python scripts/check_release.py
+      - run: maturin sdist --out dist
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: source
+          path: dist/*.tar.gz
+  publish:
+    needs: [wheels, source]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Check release metadata and checksum every distribution
+        run: |
+          python scripts/check_release.py
+          python -c "import hashlib,pathlib; root=pathlib.Path('dist'); paths=sorted(p for p in root.iterdir() if p.is_file()); (root/'SHA256SUMS').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n' for p in paths))"
+          echo "VERSION=$(python -c "import pathlib,tomllib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'])")" >> "$GITHUB_ENV"
+      - uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8
+        with:
+          subject-path: dist/*
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: release-candidate
+          path: dist/
+      - name: Publish the native release and complete notes
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/* --verify-tag \
+            --title "pain001-fast $VERSION" --notes-file "releases/v${VERSION}.md"
+          python scripts/release_notes.py publish --repo "$GITHUB_REPOSITORY" \
+            --tag "$GITHUB_REF_NAME" --project pain001-fast

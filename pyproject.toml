@@ -2,12 +2,12 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
 [build-system]
-requires = ["maturin>=1.5,<2.0"]
+requires = ["maturin==1.16.0"]
 build-backend = "maturin"
 
 [project]
 name = "pain001-fast"
-version = "0.0.2"
+version = "0.0.82"
 description = "High-throughput native validation and serialization core for the pain001 ISO 20022 ecosystem."
 authors = [{name = "Sebastien Rousseau", email = "sebastian.rousseau@gmail.com"}]
 license = {text = "Apache-2.0 OR MIT"}
@@ -23,6 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Rust",
     "Topic :: Office/Business :: Financial",
 ]
@@ -30,6 +31,7 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
+    "maturin==1.16.0",
     "pytest>=8.0.0",
     "pytest-cov>=5.0.0",
     "pytest-benchmark>=4.0.0",
@@ -45,7 +47,7 @@ Issues = "https://github.com/sebastienrousseau/pain001-fast/issues"
 Changelog = "https://github.com/sebastienrousseau/pain001-fast/blob/main/CHANGELOG.md"
 
 [tool.maturin]
-features = ["pyo3/extension-module"]
+features = ["pyo3/extension-module", "pyo3/abi3-py311"]
 module-name = "pain001_fast._pain001_fast"
 python-source = "python"
 

@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://github.com/sebastienrousseau/pain001-fast/actions"><img src="https://github.com/sebastienrousseau/pain001-fast/workflows/ci/badge.svg?style=for-the-badge&logo=github" alt="Build" /></a>
-  <a href="https://pypi.org/project/pain001-fast/"><img src="https://img.shields.io/pypi/v/pain001-fast?style=for-the-badge&color=fc8d62&logo=python" alt="Registry" /></a>
+  <a href="https://github.com/sebastienrousseau/pain001-fast/releases"><img src="https://img.shields.io/github/v/release/sebastienrousseau/pain001-fast?style=for-the-badge&color=fc8d62&logo=python" alt="Registry" /></a>
   <a href="docs/index.md"><img src="https://img.shields.io/badge/docs-source?style=for-the-badge&labelColor=555555&logo=readthedocs" alt="Docs" /></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/sebastienrousseau/pain001-fast"><img src="https://img.shields.io/ossf-scorecard/github.com/sebastienrousseau/pain001-fast?style=for-the-badge&label=OpenSSF%20Scorecard&logo=openssf" alt="OpenSSF Scorecard" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue.svg?style=for-the-badge" alt="License: Apache-2.0 OR MIT" /></a>
@@ -58,10 +58,10 @@
 ### As a Python library
 
 ```bash
-pip install pain001-fast
+pip install "git+https://github.com/sebastienrousseau/pain001-fast.git@v0.0.82"
 ```
 
-For source builds, ensure Rust 1.89+ and `maturin` are installed:
+This package is distributed through [GitHub Releases](https://github.com/sebastienrousseau/pain001-fast/releases/tag/v0.0.82), not PyPI. Download a wheel matching your platform or build from the signed source tag. Source builds require Rust 1.89+ and `maturin`:
 
 ```bash
 maturin develop --release
@@ -167,7 +167,7 @@ See [`docs/BENCHMARKS.md`](docs/BENCHMARKS.md) for methodology and full results.
 
 ## Configuration
 
-`pain001-fast` requires zero configuration. When installed, `pain001` core automatically detects and promotes validation routines to native speed.
+`pain001-fast` has no configuration file. Import its validation functions explicitly; installing the extension does not enable it in the core library.
 
 ---
 
@@ -220,7 +220,7 @@ Report vulnerabilities according to [`SECURITY.md`](SECURITY.md).
 
 ## Stability guarantees
 
-Follows Semantic Versioning strictly. Initial version starts at `v0.0.1`.
+Version 0.0.82, in lockstep with the pain001 suite by maintainer decision. Earlier 0.0.1 and 0.0.2 tags are preserved. Subsequent releases advance together by one 0.0.1 step. This native extension remains experimental; no stable public API is promised.
 
 ---
 
