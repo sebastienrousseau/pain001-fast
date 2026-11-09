@@ -7,6 +7,15 @@ All notable changes to `pain001-fast` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.83] - 2026-11-09
+
+### Changed
+
+- Release 0.0.83 in lockstep with pain001 0.0.83. Nothing in the
+  extension changed beyond the version: the validation algorithms and
+  the Python API are the same as in 0.0.82, and the extension does not
+  depend on the core.
+
 ## [0.0.82] - 2026-11-09
 
 ### Changed
