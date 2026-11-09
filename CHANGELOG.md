@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Describe the core's automatic native validation helpers accurately and link to the current source and wheel release.
+- `make test` passes `PYO3_PYTHON` with the rpath, so the Rust tests
+  link the same libpython the rpath names; with a venv on a different
+  Python first on `PATH` they aborted with "Library not loaded".
 
 ### Changed
 
