@@ -6,7 +6,7 @@
 
 - Rust 1.89+ (`rust-version` in `Cargo.toml`)
 - Python 3.11+
-- `maturin` 1.5+
+- The `maturin` version pinned in `pyproject.toml`
 
 ## Setup & Build
 
@@ -32,3 +32,7 @@ cargo fmt --check
 ruff check .
 mypy python/pain001_fast
 ```
+
+The repository ships the pain001 suite version in lockstep. Run the release
+version gate before publishing; preserve existing tags. The 0.0.82 release
+records the maintainer-authorized adoption of the suite version.
