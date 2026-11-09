@@ -424,7 +424,7 @@ wheels = [
 
 [[package]]
 name = "pain001-fast"
-version = "0.0.82"
+version = "0.0.83"
 source = { editable = "." }
 
 [package.optional-dependencies]

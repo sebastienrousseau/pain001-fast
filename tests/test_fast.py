@@ -22,7 +22,7 @@ from pain001_fast import (
 
 
 def test_version() -> None:
-    assert __version__ == "0.0.82"
+    assert __version__ == "0.0.83"
 
 
 def test_validate_iban_valid() -> None:
