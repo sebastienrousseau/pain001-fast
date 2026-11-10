@@ -13,5 +13,6 @@ Benchmarks measured on Apple Silicon M-series (10 cores, 16GB RAM) using `criter
 ## Batch Benchmarks
 
 10,000 mixed SEPA/FedNow payment orders evaluated in parallel:
+
 - Total throughput: > 60,000 transactions/second
 - p99 Latency: < 45 ms

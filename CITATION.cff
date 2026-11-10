@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+cff-version: 1.2.0
+message: "If you use pain001-fast in research or production write-ups, please cite it as below."
+type: software
+title: "pain001-fast: a native validation and serialization core for pain001"
+abstract: >-
+  A native (Rust, PyO3) extension for the pain001 ISO 20022 ecosystem
+  that validates and serializes payment records at high throughput;
+  pain001's IBAN, BIC and character-set checks use it when it is
+  installed.
+authors:
+  - family-names: Rousseau
+    given-names: Sebastien
+    email: sebastian.rousseau@gmail.com
+version: "0.0.85"
+date-released: "2026-11-10"
+# Dual-licensed, at the user's option (LICENSE, LICENSE-APACHE,
+# LICENSE-MIT). CFF 1.2.0 takes SPDX licence identifiers, not an SPDX
+# expression; a list of several means the work is available under any of
+# them.
+license:
+  - Apache-2.0
+  - MIT
+repository-code: "https://github.com/sebastienrousseau/pain001-fast"
+url: "https://pain001.com"
+keywords:
+  - ISO 20022
+  - pain.001
+  - Rust
+  - PyO3
+  - payments

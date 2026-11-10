@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add issue forms, a pull request template, CITATION.cff and a
+  markdownlint CI job (`docs-lint.yml`, configured in
+  `.markdownlint-cli2.jsonc`); fix the Markdown it flagged.
+
 ## [0.0.85] - 2026-11-10
 
 ### Changed
