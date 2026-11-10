@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.85] - 2026-11-10
+
+### Changed
+
+- Coordinate the native wheel and source release with pain001 0.0.85; native validation behavior is unchanged.
+
 ## [0.0.84] - 2026-11-09
 
 ### Added
