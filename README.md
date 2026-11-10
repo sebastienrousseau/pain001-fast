@@ -58,10 +58,10 @@
 ### As a Python library
 
 ```bash
-pip install "git+https://github.com/sebastienrousseau/pain001-fast.git@v0.0.84"
+pip install "git+https://github.com/sebastienrousseau/pain001-fast.git@v0.0.85"
 ```
 
-This package is distributed through [GitHub Releases](https://github.com/sebastienrousseau/pain001-fast/releases/tag/v0.0.84), not PyPI. Download a wheel matching your platform or build from the signed source tag. Source builds require Rust 1.89+ and `maturin`:
+This package is distributed through [GitHub Releases](https://github.com/sebastienrousseau/pain001-fast/releases/tag/v0.0.85), not PyPI. Download a wheel matching your platform or build from the signed source tag. Source builds require Rust 1.89+ and `maturin`:
 
 ```bash
 maturin develop --release
@@ -220,7 +220,7 @@ Report vulnerabilities according to [`SECURITY.md`](SECURITY.md).
 
 ## Stability guarantees
 
-Version 0.0.84, in lockstep with the pain001 suite, which this extension joined at 0.0.82 by maintainer decision. Earlier 0.0.1 and 0.0.2 tags are preserved. Releases advance together by one 0.0.1 step. This native extension remains experimental; no stable public API is promised.
+Version 0.0.85, in lockstep with the pain001 suite, which this extension joined at 0.0.82 by maintainer decision. Earlier 0.0.1 and 0.0.2 tags are preserved. Releases advance together by one 0.0.1 step. This native extension remains experimental; no stable public API is promised.
 
 ---
 
