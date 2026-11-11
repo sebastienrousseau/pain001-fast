@@ -26,7 +26,7 @@ records = [
 
 result = validate_payment_batch(records)
 for error in result["errors"]:
-    print(f"row {error['row']} {error['field']}: {error['error']}")
+    print(f"row {error['row']}: {error['field']} refused")
 
 assert result["valid"] is False
 assert result["transaction_count"] == 4

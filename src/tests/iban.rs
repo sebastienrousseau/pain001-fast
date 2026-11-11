@@ -6,13 +6,20 @@ use crate::{validate_iban, validate_iban_detailed, validate_iban_detailed_fast};
 
 #[test]
 fn valid_ibans_pass() {
-    for iban in [
+    for (case, iban) in [
         "DE89370400440532013000",
         "GB82WEST12345698765432",
         "FR1420041010050500013M02606",
         "de89 3704-0044 0532 0130 00",
-    ] {
-        assert_eq!(validate_iban_detailed_fast(iban), pass(), "{iban}");
+    ]
+    .iter()
+    .enumerate()
+    {
+        assert_eq!(
+            validate_iban_detailed_fast(iban),
+            pass(),
+            "valid IBAN case {case}"
+        );
     }
 }
 
@@ -111,7 +118,11 @@ fn every_listed_country_accepts_its_own_length() {
     for (country, length) in crate::iban::IBAN_LENGTHS {
         let country = std::str::from_utf8(&country).unwrap();
         let iban = synthesise_iban(country, length);
-        assert_eq!(validate_iban_detailed_fast(&iban), pass(), "{iban}");
+        assert_eq!(
+            validate_iban_detailed_fast(&iban),
+            pass(),
+            "{country} at length {length}"
+        );
     }
 }
 

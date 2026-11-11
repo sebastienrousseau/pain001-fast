@@ -21,12 +21,12 @@ assert validate_bic("DEUTDEFF500")
 # The detailed forms return (is_valid, reason); the reason is empty
 # when the code is valid.
 ok, reason = validate_iban_detailed("DE00370400440532013000")
-print(f"DE00370400440532013000: {reason}")
+print(f"IBAN with a wrong check digit: {reason}")
 assert not ok
 assert reason == "IBAN checksum validation failed (mod 97 = 9, expected 1)"
 
 ok, reason = validate_bic_detailed("DEUT99FF")
-print(f"DEUT99FF: {reason}")
+print(f"BIC with digits in the country code: {reason}")
 assert not ok
 assert reason == (
     "BIC format invalid: country code (chars 5-6) must be letters (got '99')"

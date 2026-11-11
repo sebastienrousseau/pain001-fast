@@ -25,7 +25,12 @@ pub fn check_invariants(text: &str) {
         validate_iban_detailed_fast(text),
         validate_bic_detailed_fast(text),
     ] {
-        assert_eq!(valid, message.is_empty(), "{text:?}: {message:?}");
+        let len = text.len();
+        assert_eq!(
+            valid,
+            message.is_empty(),
+            "reason disagrees for a {len}-byte input"
+        );
         if valid {
             let significant = text.bytes().filter(|&b| b != b' ' && b != b'-');
             assert!(
