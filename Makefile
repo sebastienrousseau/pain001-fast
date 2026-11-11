@@ -46,10 +46,11 @@ lint:
 	cargo clippy --all-targets -- -D warnings
 	cargo fmt --check
 	ruff check .
+	ruff format --check python scripts tests examples
 
 format:
 	cargo fmt
-	ruff format .
+	ruff format python scripts tests examples
 
 clean:
 	cargo clean

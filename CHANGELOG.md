@@ -45,6 +45,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `rustfmt.toml` pins rustfmt to its defaults, so a contributor's global
   configuration cannot make `cargo fmt` disagree with CI.
 
+- The Python sources are formatted with `ruff format`, checked by
+  `make lint` and the CI `ruff` step.
+
 ### Fixed
 
 - The pure-Python fallback, used when the compiled extension cannot be

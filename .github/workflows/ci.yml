@@ -99,7 +99,9 @@ jobs:
           python -c "import pathlib, subprocess, sys, tomllib; requirements = tomllib.loads(pathlib.Path('pyproject.toml').read_text())['build-system']['requires']; subprocess.check_call(['.venv/bin/python', '-m', 'pip', 'install', *requirements])"
           VIRTUAL_ENV="$PWD/.venv" .venv/bin/maturin develop --release --extras dev
       - name: ruff
-        run: .venv/bin/ruff check .
+        run: |
+          .venv/bin/ruff check .
+          .venv/bin/ruff format --check python scripts tests examples
       - name: mypy
         run: .venv/bin/mypy python
       - name: pytest (100% line and branch coverage)

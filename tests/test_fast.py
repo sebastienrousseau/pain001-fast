@@ -181,7 +181,9 @@ def test_batch_throughput_benchmark() -> None:
         "currency": "EUR",
         "execution_date": "2026-10-01",
     }
-    records = [dict(rec, execution_date=f"2026-10-{i:04d}") for i in range(5000)]
+    records = [
+        dict(rec, execution_date=f"2026-10-{i:04d}") for i in range(5000)
+    ]
 
     start = time.perf_counter()
     res = validate_payment_batch(records)
@@ -191,4 +193,6 @@ def test_batch_throughput_benchmark() -> None:
     assert res["transaction_count"] == 5000
     # Assert throughput is at least 20,000 tx/sec (target 50,000 tx/sec)
     tx_per_sec = 5000 / duration
-    assert tx_per_sec > 10000, f"Throughput {tx_per_sec:.0f} tx/sec was lower than expected"
+    assert tx_per_sec > 10000, (
+        f"Throughput {tx_per_sec:.0f} tx/sec was lower than expected"
+    )
