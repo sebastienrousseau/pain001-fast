@@ -15,11 +15,16 @@ mod batch;
 mod bic;
 mod charset;
 mod iban;
+#[cfg(any(test, feature = "fuzzing"))]
+mod invariants;
 
 pub use batch::validate_payment_batch;
 pub use bic::validate_bic_detailed_fast;
 pub use charset::{find_invalid_characters_fast, sanitize_to_charset_fast};
 pub use iban::validate_iban_detailed_fast;
+#[cfg(any(test, feature = "fuzzing"))]
+#[doc(hidden)]
+pub use invariants::check_invariants;
 
 /// Copy `input` into an `N`-byte buffer without spaces or hyphens,
 /// uppercasing ASCII letters. Returns the buffer and the length used,

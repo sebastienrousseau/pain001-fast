@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+# cargo-fuzz harness for the native core. Not part of the published
+# crate; see DEVELOPMENT.md for how to run it.
+[package]
+name = "pain001-fast-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+pain001-fast = { path = "..", default-features = false, features = ["fuzzing"] }
+
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "validators"
+path = "fuzz_targets/validators.rs"
+test = false
+doc = false
+bench = false

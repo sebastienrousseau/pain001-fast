@@ -35,6 +35,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A codespell job in `docs-lint.yml` (hash-pinned
   `requirements/docs-lint.txt`, configured in `pyproject.toml`) and
   `make docs-lint` running it with markdownlint.
+- A cargo-fuzz harness (`fuzz/`, target `validators`) that checks each
+  entry point's contract on arbitrary text; `make fuzz` runs it for
+  `FUZZ_SECONDS`, `fuzz.yml` for two minutes on pull requests and
+  weekly, and `cargo test` replays the committed seed corpus on stable.
 - `LICENSE`, the dual-licence pointer the README's licence badge links
   to; the link was broken.
 

@@ -84,7 +84,7 @@ max-complexity = 10
 # in the Rust tests. The skipped paths are generated, third-party or
 # binary.
 ignore-words-list = "fo,caf"
-skip = "./.git,./.venv,./target,./.mypy_cache,./.ruff_cache,./.pytest_cache,./.benchmarks,./requirements,*.so,*.gif,uv.lock,Cargo.lock,.coverage"
+skip = "./.git,./.venv,./target,./fuzz/target,./fuzz/corpus,./.mypy_cache,./.ruff_cache,./.pytest_cache,./.benchmarks,./requirements,*.so,*.gif,uv.lock,Cargo.lock,.coverage"
 quiet-level = 3
 
 [tool.mypy]

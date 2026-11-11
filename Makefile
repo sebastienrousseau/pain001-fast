@@ -1,7 +1,7 @@
 # Copyright (C) 2023-2026 Pain001. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
-.PHONY: all build check test coverage-rust lint docs-lint type versions sec format clean
+.PHONY: all build check test coverage-rust fuzz lint docs-lint type versions sec format clean
 
 all: build test
 
@@ -53,6 +53,15 @@ lint:
 docs-lint:
 	codespell
 	npx --yes markdownlint-cli2@0.23.3 "**/*.md"
+
+# Fuzz the validators for FUZZ_SECONDS (default 60) with cargo-fuzz on a
+# nightly toolchain. New inputs go to a scratch directory; the committed
+# seeds in fuzz/corpus/validators are only read. `make test` replays the
+# committed corpus on stable.
+FUZZ_SECONDS ?= 60
+fuzz:
+	mkdir -p fuzz/target/corpus
+	cd fuzz && PYO3_PYTHON="$(PYO3_PYTHON)" RUSTFLAGS="-C link-arg=-Wl,-rpath,$(PYTHON_LIBDIR)" cargo +nightly fuzz run validators target/corpus corpus/validators -- -max_total_time=$(FUZZ_SECONDS)
 
 format:
 	cargo fmt

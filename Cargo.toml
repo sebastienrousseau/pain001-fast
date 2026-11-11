@@ -25,6 +25,8 @@ unicode-normalization = "0.1"
 [features]
 default = ["extension-module"]
 extension-module = ["pyo3/extension-module"]
+# Exposes `check_invariants` to the cargo-fuzz harness in fuzz/.
+fuzzing = []
 
 [dev-dependencies]
 criterion = "0.8"

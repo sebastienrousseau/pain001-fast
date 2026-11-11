@@ -11,6 +11,7 @@
 mod batch;
 mod bic;
 mod charset;
+mod corpus;
 mod iban;
 mod module;
 
