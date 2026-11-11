@@ -255,6 +255,8 @@ IBAN and BIC checks copy at most 34 and 11 bytes into stack buffers
 whatever the input length. A cargo-fuzz target runs every entry point
 on arbitrary text in CI, and `cargo test` replays its committed corpus
 on every run. OSS-Fuzz is not set up.
+The project holds the
+[OpenSSF Best Practices passing badge](https://www.bestpractices.dev/projects/16561).
 
 Report vulnerabilities according to [`SECURITY.md`](SECURITY.md).
 
