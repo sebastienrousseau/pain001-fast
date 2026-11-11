@@ -44,6 +44,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   denied in `make check` and CI, and `tests/test_api_docs.py`
   requiring a docstring on every public Python name, from the Rust doc
   comments or the fallback.
+- `GOVERNANCE.md`, `SUPPORT.md`, `MAINTAINERS.md` and
+  `docs/ARCHITECTURE.md`, adapted from the core and its siblings;
+  `DEVELOPMENT.md` rewritten as the single developer entry point
+  (toolchain, every CI gate and its local command, coverage and
+  complexity rationale, test layout, fuzzing, release model);
+  `CONTRIBUTING.md` refreshed to match.
+- `tests/test_docs_links.py`: every repository-relative link in the
+  Markdown sources resolves.
 - `LICENSE`, the dual-licence pointer the README's licence badge links
   to; the link was broken.
 
@@ -65,6 +73,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The Python sources are formatted with `ruff format`, checked by
   `make lint` and the CI `ruff` step.
+
+- `SECURITY.md` listed 0.0.2 as the supported release. It now follows
+  the suite: 0.0.85 current and 0.0.84 prior receive fixes, reports go
+  to GitHub Private Vulnerability Reporting or `security@pain001.com`,
+  and the posture section states what the extension does and does not
+  do.
 
 ### Fixed
 
