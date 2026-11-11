@@ -67,6 +67,14 @@ show_missing = true
 line-length = 79
 target-version = "py311"
 
+[tool.ruff.lint]
+# C901 holds every Python function to cyclomatic complexity 10, the
+# portfolio ceiling; Rust's ceilings are in clippy.toml.
+extend-select = ["C901"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
 [tool.mypy]
 strict = true
 python_version = "3.11"

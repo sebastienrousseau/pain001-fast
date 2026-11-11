@@ -98,3 +98,13 @@ fn python_bindings_return_the_same_verdict() {
     assert!(!validate_bic("DEUTZZFF"));
     assert_eq!(validate_bic_detailed(""), fail("BIC cannot be empty"));
 }
+
+#[test]
+fn the_country_list_is_sorted_for_binary_search() {
+    let list = crate::bic::BIC_COUNTRIES;
+    assert!(list.windows(2).all(|pair| pair[0] < pair[1]));
+    for country in list {
+        let bic = format!("BANK{}2L", std::str::from_utf8(&country).unwrap());
+        assert_eq!(validate_bic_detailed_fast(&bic), pass(), "{bic}");
+    }
+}

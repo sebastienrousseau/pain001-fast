@@ -3,13 +3,12 @@
 
 use super::with_py;
 use pyo3::prelude::*;
-use pyo3::types::PyModule;
 
 #[test]
 fn the_module_exports_every_binding() {
     with_py(|py| {
-        let module = PyModule::new(py, "_pain001_fast").unwrap();
-        crate::_pain001_fast(&module).unwrap();
+        let module = pyo3::wrap_pymodule!(crate::_pain001_fast)(py);
+        let module = module.bind(py);
         for name in [
             "validate_iban",
             "validate_iban_detailed",

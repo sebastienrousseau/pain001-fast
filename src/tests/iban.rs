@@ -98,6 +98,39 @@ fn checksum_is_enforced() {
 }
 
 #[test]
+fn the_length_table_is_sorted_for_binary_search() {
+    let table = crate::iban::IBAN_LENGTHS;
+    assert!(table.windows(2).all(|pair| pair[0].0 < pair[1].0));
+}
+
+#[test]
+fn every_listed_country_accepts_its_own_length() {
+    // A table entry with the wrong length would refuse every IBAN of
+    // that country; this pins each entry to a checksum-valid example
+    // of exactly the listed length.
+    for (country, length) in crate::iban::IBAN_LENGTHS {
+        let country = std::str::from_utf8(&country).unwrap();
+        let iban = synthesise_iban(country, length);
+        assert_eq!(validate_iban_detailed_fast(&iban), pass(), "{iban}");
+    }
+}
+
+/// Build a checksum-valid IBAN of `length` for `country`.
+fn synthesise_iban(country: &str, length: usize) -> String {
+    let bban = "1".repeat(length - 4);
+    let rearranged = format!("{bban}{country}00");
+    let mut acc: u64 = 0;
+    for b in rearranged.bytes() {
+        acc = if b.is_ascii_digit() {
+            (acc * 10 + u64::from(b - b'0')) % 97
+        } else {
+            (acc * 100 + u64::from(b - b'A' + 10)) % 97
+        };
+    }
+    format!("{country}{:02}{bban}", 98 - acc)
+}
+
+#[test]
 fn python_bindings_return_the_same_verdict() {
     assert!(validate_iban("DE89370400440532013000"));
     assert!(!validate_iban("DE00370400440532013000"));

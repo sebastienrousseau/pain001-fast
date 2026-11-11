@@ -35,3 +35,10 @@ lto = "thin"
 codegen-units = 1
 panic = "abort"
 strip = true
+
+[lints.clippy]
+# Thresholds in clippy.toml. Both are outside clippy's default groups,
+# so they are switched on here; `-D warnings` in `make lint` and CI
+# makes them errors.
+cognitive_complexity = "warn"
+too_many_lines = "warn"

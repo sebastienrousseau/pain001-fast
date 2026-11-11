@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+# Complexity ceilings from the portfolio standard, enforced by the
+# lints switched on in Cargo.toml [lints.clippy]: cognitive complexity
+# 15 and 60 lines per function. Cyclomatic 10 is held for the Python
+# shim by ruff C901; clippy has no cyclomatic lint.
+cognitive-complexity-threshold = 15
+too-many-lines-threshold = 60

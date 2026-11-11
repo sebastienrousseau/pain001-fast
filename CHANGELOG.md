@@ -19,6 +19,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   message compared in full; the pure-Python fallback now counts
   towards the 100% Python coverage floor instead of being excluded.
 
+### Changed
+
+- `src/lib.rs` is split into `iban`, `bic`, `charset` and `batch`
+  modules, and every function is held to the portfolio's complexity
+  ceilings: clippy's `cognitive_complexity` (15) and `too_many_lines`
+  (60) lints are switched on in `Cargo.toml` with thresholds in
+  `clippy.toml`, and ruff's C901 (cyclomatic 10) in `pyproject.toml`.
+  Behaviour and every error message are unchanged.
+- The IBAN length and BIC country tables are sorted arrays searched by
+  binary search, each checked by a test that builds a valid code for
+  every entry.
+- The extension module is declared with PyO3's declarative module
+  syntax.
+- `rustfmt.toml` pins rustfmt to its defaults, so a contributor's global
+  configuration cannot make `cargo fmt` disagree with CI.
+
 ### Fixed
 
 - The pure-Python fallback, used when the compiled extension cannot be
