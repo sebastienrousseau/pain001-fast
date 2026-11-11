@@ -21,6 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rust line and function coverage is gated at 100% by
   `make coverage-rust` (cargo-llvm-cov), part of `make check`, and by a
   `Rust coverage` job in `ci.yml`.
+- `examples/`: three numbered, self-checking scripts (identifiers,
+  restricted character set, batch), run by `tests/test_examples.py`.
+- `tests/test_readme.py` holds the README to the canonical section
+  order, refuses unresolved `{{TOKEN}}` placeholders and links to
+  missing files, and runs the Python Quick Start.
+- `LICENSE`, the dual-licence pointer the README's licence badge links
+  to; the link was broken.
 
 ### Changed
 
