@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+# uv for .devcontainer/post-create.sh, installed with --require-hashes so
+# the container's first download is pinned by hash, not only by version.
+# Regenerate with:
+#   uv pip compile --generate-hashes --universal --python-version 3.11 \
+#     requirements/devcontainer.in -o requirements/devcontainer.txt
+uv==0.13.6

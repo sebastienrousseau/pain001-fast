@@ -6,7 +6,7 @@
 # creating is one where every local gate has passed.
 set -euo pipefail
 
-python3 -m pip install --user uv==0.13.6
+python3 -m pip install --user --require-hashes -r requirements/devcontainer.txt
 export PATH="$HOME/.local/bin:$PATH"
 
 rustup component add clippy rustfmt llvm-tools-preview

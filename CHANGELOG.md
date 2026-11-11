@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   accepts the five pain001 SDK repositories as known members not yet
   released. From the 0.0.86 release until this change every scheduled
   run failed on them as undeclared repositories.
+- The devcontainer installs uv from `requirements/devcontainer.txt` with
+  `--require-hashes`, so its first download is pinned by hash as well as
+  by version (OpenSSF Scorecard Pinned-Dependencies).
 
 ## [0.0.86] - 2026-11-11
 
