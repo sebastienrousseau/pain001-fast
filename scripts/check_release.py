@@ -20,9 +20,15 @@ def main() -> None:
         own = next(p for p in packages if p["name"] == "pain001-fast")
         assert own["version"] == version, name
     module = (ROOT / "python/pain001_fast/__init__.py").read_text()
-    assert re.search(rf'^__version__ = "{re.escape(version)}"$', module, re.MULTILINE)
+    assert re.search(
+        rf'^__version__ = "{re.escape(version)}"$', module, re.MULTILINE
+    )
     assert f"## [{version}] - " in (ROOT / "CHANGELOG.md").read_text()
-    assert f"Version {version}, in lockstep" in (ROOT / "README.md").read_text()
+    readme = (ROOT / "README.md").read_text()
+    assert f"Version {version}, in lockstep" in readme
+    # The install snippet and the release link name the current tag.
+    assert f"pain001-fast.git@v{version}" in readme
+    assert f"releases/tag/v{version}" in readme
     assert (ROOT / "releases" / f"v{version}.md").is_file()
     if os.environ.get("GITHUB_REF_TYPE") == "tag":
         assert os.environ["GITHUB_REF_NAME"] == f"v{version}"

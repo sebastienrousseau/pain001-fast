@@ -2,16 +2,25 @@
 
 # Benchmarks
 
-Benchmarks measured on Apple Silicon M-series (10 cores, 16GB RAM) using `criterion` and `pytest-benchmark`.
+No benchmark in this repository measures `pain001-fast` yet, so this
+page publishes no figures.
 
-## Micro-benchmarks
+Earlier releases stated per-call times (about 22 ns per IBAN, 14 ns per
+BIC, 115 ns to sanitise 50 characters) and batch throughput (over
+60,000 records per second, p99 under 45 ms) measured on Apple Silicon.
+No benchmark that produced them was ever committed, so they could not
+be reproduced or checked, and they are withdrawn.
 
-- `validate_iban_detailed_fast`: 21.8 ns / op
-- `validate_bic_detailed_fast`: 13.9 ns / op
-- `sanitize_to_charset_fast`: 115 ns / op (50-character string)
+## What a figure needs before it returns here
 
-## Batch Benchmarks
+- A benchmark in the repository: `criterion` (already a dev-dependency)
+  under `benches/` for the Rust functions, and `pytest-benchmark`
+  (already in the `dev` extra) for the bindings and
+  `validate_payment_batch` as Python sees them.
+- The command that reproduces it, the machine, the toolchain and the
+  build profile, next to the number.
+- A CI job that keeps the benchmark compiling and running, without
+  asserting on timings.
 
-10,000 mixed SEPA/FedNow payment orders evaluated in parallel:
-- Total throughput: > 60,000 transactions/second
-- p99 Latency: < 45 ms
+`tests/test_fast.py::test_batch_throughput_benchmark` is a guard, not a
+benchmark: it fails if 5,000 records take longer than half a second.

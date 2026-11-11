@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+# Pins rustfmt to its defaults here, so a contributor's global
+# ~/.rustfmt.toml cannot make `cargo fmt` disagree with CI.
+edition = "2021"

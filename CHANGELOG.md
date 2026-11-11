@@ -9,6 +9,102 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.86] - 2026-11-11
+
+### Added
+
+- Add issue forms, a pull request template, CITATION.cff and a
+  markdownlint CI job (`docs-lint.yml`, configured in
+  `.markdownlint-cli2.jsonc`); fix the Markdown it flagged.
+- Rust unit tests for every binding, the module definition and the
+  batch validator (through an embedded interpreter), with every error
+  message compared in full; the pure-Python fallback now counts
+  towards the 100% Python coverage floor instead of being excluded.
+- Rust line and function coverage is gated at 100% by
+  `make coverage-rust` (cargo-llvm-cov), part of `make check`, and by a
+  `Rust coverage` job in `ci.yml`.
+- `examples/`: three numbered, self-checking scripts (identifiers,
+  restricted character set, batch), run by `tests/test_examples.py`.
+- `tests/test_readme.py` holds the README to the canonical section
+  order, refuses unresolved `{{TOKEN}}` placeholders and links to
+  missing files, and runs the Python Quick Start.
+- `.editorconfig`; `.pre-commit-config.yaml` with pre-commit-hooks,
+  ruff (the uv.lock release), codespell and `cargo fmt`, pinned by
+  commit SHA.
+- `.devcontainer/` on the Rust image with Python and Node, whose
+  post-create script installs uv, cargo-llvm-cov and the locked dev
+  environment and ends with `make check`.
+- A codespell job in `docs-lint.yml` (hash-pinned
+  `requirements/docs-lint.txt`, configured in `pyproject.toml`) and
+  `make docs-lint` running it with markdownlint.
+- A cargo-fuzz harness (`fuzz/`, target `validators`) that checks each
+  entry point's contract on arbitrary text; `make fuzz` runs it for
+  `FUZZ_SECONDS`, `fuzz.yml` for two minutes on pull requests and
+  weekly, and `cargo test` replays the committed seed corpus on stable.
+- API documentation gate: `#![warn(missing_docs)]` (an error under
+  clippy's `-D warnings`), `make doc` building rustdoc with warnings
+  denied in `make check` and CI, and `tests/test_api_docs.py`
+  requiring a docstring on every public Python name, from the Rust doc
+  comments or the fallback.
+- `GOVERNANCE.md`, `SUPPORT.md`, `MAINTAINERS.md` and
+  `docs/ARCHITECTURE.md`, adapted from the core and its siblings;
+  `DEVELOPMENT.md` rewritten as the single developer entry point
+  (toolchain, every CI gate and its local command, coverage and
+  complexity rationale, test layout, fuzzing, release model);
+  `CONTRIBUTING.md` refreshed to match.
+- `tests/test_docs_links.py`: every repository-relative link in the
+  Markdown sources resolves.
+- `LICENSE`, the dual-licence pointer the README's licence badge links
+  to; the link was broken.
+
+### Changed
+
+- Release 0.0.86 in lockstep with the pain001 suite.
+- `src/lib.rs` is split into `iban`, `bic`, `charset` and `batch`
+  modules, and every function is held to the portfolio's complexity
+  ceilings: clippy's `cognitive_complexity` (15) and `too_many_lines`
+  (60) lints are switched on in `Cargo.toml` with thresholds in
+  `clippy.toml`, and ruff's C901 (cyclomatic 10) in `pyproject.toml`.
+  Behaviour and every error message are unchanged.
+- The IBAN length and BIC country tables are sorted arrays searched by
+  binary search, each checked by a test that builds a valid code for
+  every entry.
+- The extension module is declared with PyO3's declarative module
+  syntax.
+- `rustfmt.toml` pins rustfmt to its defaults, so a contributor's global
+  configuration cannot make `cargo fmt` disagree with CI.
+
+- The Python sources are formatted with `ruff format`, checked by
+  `make lint` and the CI `ruff` step.
+
+- `SECURITY.md` listed 0.0.2 as the supported release. It now follows
+  the suite: 0.0.86 current and 0.0.85 prior receive fixes, reports go
+  to GitHub Private Vulnerability Reporting or `security@pain001.com`,
+  and the posture section states what the extension does and does not
+  do.
+
+- The README follows the canonical template (badge heights, the
+  template's build badge, a demo GIF rendered by `make demo` from
+  `.github/demo.tape`), and its claims now match the repository: musl
+  is not in the release matrix and is dropped from the platforms; the
+  per-call and throughput figures in the README, `docs/BENCHMARKS.md`
+  and `docs/COMPARISON.md` had no benchmark in the repository behind
+  them and are withdrawn; "zero allocation" now applies only to a valid
+  IBAN or BIC; capabilities are "shipped, API experimental" rather than
+  "production ready", matching the stability section. The package
+  description, `CITATION.cff` and the module docstring no longer
+  mention serialization, which the extension does not do.
+- `scripts/check_release.py` also checks that the README's install
+  snippet and release link name the current tag.
+
+### Fixed
+
+- The pure-Python fallback, used when the compiled extension cannot be
+  imported, now refuses IBANs and BICs with non-ASCII characters as
+  the extension does. It raised `ValueError` on a superscript digit,
+  accepted accented letters, and uppercased the ligature `ﬀ` into a
+  valid BIC.
+
 ## [0.0.85] - 2026-11-10
 
 ### Changed

@@ -7,8 +7,8 @@ build-backend = "maturin"
 
 [project]
 name = "pain001-fast"
-version = "0.0.85"
-description = "High-throughput native validation and serialization core for the pain001 ISO 20022 ecosystem."
+version = "0.0.86"
+description = "Native Rust IBAN, BIC, character-set and batch validation for the pain001 ISO 20022 ecosystem."
 authors = [{name = "Sebastien Rousseau", email = "sebastian.rousseau@gmail.com"}]
 license = {text = "Apache-2.0 OR MIT"}
 readme = "README.md"
@@ -66,6 +66,26 @@ show_missing = true
 [tool.ruff]
 line-length = 79
 target-version = "py311"
+# ruff would also reformat code blocks in Markdown; the README's are
+# prose and the tests run them as written.
+extend-exclude = ["*.md"]
+
+[tool.ruff.lint]
+# C901 holds every Python function to cyclomatic complexity 10, the
+# portfolio ceiling; Rust's ceilings are in clippy.toml.
+extend-select = ["C901"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.codespell]
+# Spelling gate for the docs-lint job and the pre-commit hook. FO is the
+# Faroe Islands country code; "Caf" is "Café" with its accent escaped
+# in the Rust tests. The skipped paths are generated, third-party or
+# binary.
+ignore-words-list = "fo,caf"
+skip = "./.git,./.venv,./target,./fuzz/target,./fuzz/corpus,./.mypy_cache,./.ruff_cache,./.pytest_cache,./.benchmarks,./requirements,*.so,*.gif,uv.lock,Cargo.lock,.coverage"
+quiet-level = 3
 
 [tool.mypy]
 strict = true
