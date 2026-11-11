@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.86] - 2026-11-11
+
 ### Added
 
 - Add issue forms, a pull request template, CITATION.cff and a
@@ -57,6 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Release 0.0.86 in lockstep with the pain001 suite.
 - `src/lib.rs` is split into `iban`, `bic`, `charset` and `batch`
   modules, and every function is held to the portfolio's complexity
   ceilings: clippy's `cognitive_complexity` (15) and `too_many_lines`
@@ -75,7 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `make lint` and the CI `ruff` step.
 
 - `SECURITY.md` listed 0.0.2 as the supported release. It now follows
-  the suite: 0.0.85 current and 0.0.84 prior receive fixes, reports go
+  the suite: 0.0.86 current and 0.0.85 prior receive fixes, reports go
   to GitHub Private Vulnerability Reporting or `security@pain001.com`,
   and the posture section states what the extension does and does not
   do.
