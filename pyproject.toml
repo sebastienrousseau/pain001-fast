@@ -66,6 +66,9 @@ show_missing = true
 [tool.ruff]
 line-length = 79
 target-version = "py311"
+# ruff would also reformat code blocks in Markdown; the README's are
+# prose and the tests run them as written.
+extend-exclude = ["*.md"]
 
 [tool.ruff.lint]
 # C901 holds every Python function to cyclomatic complexity 10, the
@@ -74,6 +77,15 @@ extend-select = ["C901"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
+
+[tool.codespell]
+# Spelling gate for the docs-lint job and the pre-commit hook. FO is the
+# Faroe Islands country code; "Caf" is "Café" with its accent escaped
+# in the Rust tests. The skipped paths are generated, third-party or
+# binary.
+ignore-words-list = "fo,caf"
+skip = "./.git,./.venv,./target,./.mypy_cache,./.ruff_cache,./.pytest_cache,./.benchmarks,./requirements,*.so,*.gif,uv.lock,Cargo.lock,.coverage"
+quiet-level = 3
 
 [tool.mypy]
 strict = true

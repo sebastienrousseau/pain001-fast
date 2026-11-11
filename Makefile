@@ -1,7 +1,7 @@
 # Copyright (C) 2023-2026 Pain001. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
-.PHONY: all build check test coverage-rust lint type versions sec format clean
+.PHONY: all build check test coverage-rust lint docs-lint type versions sec format clean
 
 all: build test
 
@@ -47,6 +47,12 @@ lint:
 	cargo fmt --check
 	ruff check .
 	ruff format --check python scripts tests examples
+
+# Spelling (codespell, from requirements/docs-lint.txt) and Markdown
+# style (markdownlint-cli2, needs Node); the docs-lint.yml jobs.
+docs-lint:
+	codespell
+	npx --yes markdownlint-cli2@0.23.3 "**/*.md"
 
 format:
 	cargo fmt

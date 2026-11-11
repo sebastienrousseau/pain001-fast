@@ -26,6 +26,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `tests/test_readme.py` holds the README to the canonical section
   order, refuses unresolved `{{TOKEN}}` placeholders and links to
   missing files, and runs the Python Quick Start.
+- `.editorconfig`; `.pre-commit-config.yaml` with pre-commit-hooks,
+  ruff (the uv.lock release), codespell and `cargo fmt`, pinned by
+  commit SHA.
+- `.devcontainer/` on the Rust image with Python and Node, whose
+  post-create script installs uv, cargo-llvm-cov and the locked dev
+  environment and ends with `make check`.
+- A codespell job in `docs-lint.yml` (hash-pinned
+  `requirements/docs-lint.txt`, configured in `pyproject.toml`) and
+  `make docs-lint` running it with markdownlint.
 - `LICENSE`, the dual-licence pointer the README's licence badge links
   to; the link was broken.
 

@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+# Spelling for the docs-lint job (configured in pyproject.toml
+# [tool.codespell]). markdownlint-cli2 runs from npx at a pinned version.
+# Regenerate with:
+#   uv pip compile --generate-hashes --universal --python-version 3.11 \
+#     requirements/docs-lint.in -o requirements/docs-lint.txt
+codespell==2.4.3
