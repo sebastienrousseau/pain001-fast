@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add issue forms, a pull request template, CITATION.cff and a
   markdownlint CI job (`docs-lint.yml`, configured in
   `.markdownlint-cli2.jsonc`); fix the Markdown it flagged.
+- Rust unit tests for every binding, the module definition and the
+  batch validator (through an embedded interpreter), with every error
+  message compared in full; the pure-Python fallback now counts
+  towards the 100% Python coverage floor instead of being excluded.
 
 ### Fixed
 

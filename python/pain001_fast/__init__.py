@@ -25,7 +25,7 @@ try:
         validate_iban_detailed,
         validate_payment_batch,
     )
-except ImportError:  # pragma: no cover
+except ImportError:
     # Pure Python fallback when compiled extension is unavailable
     import unicodedata
 
