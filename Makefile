@@ -1,14 +1,14 @@
 # Copyright (C) 2023-2026 Pain001. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
-.PHONY: all build check test lint type versions sec format clean
+.PHONY: all build check test coverage-rust lint type versions sec format clean
 
 all: build test
 
 build:
 	uv sync --extra dev --locked
 
-check: lint type test versions
+check: lint type test coverage-rust versions
 
 type:
 	mypy python/pain001_fast
@@ -34,6 +34,13 @@ PYTHON_LIBDIR := $(shell $(PYO3_PYTHON) -c 'import sysconfig; print(sysconfig.ge
 test:
 	PYO3_PYTHON="$(PYO3_PYTHON)" RUSTFLAGS="-C link-arg=-Wl,-rpath,$(PYTHON_LIBDIR)" cargo test --no-default-features --locked
 	pytest tests/ -v
+
+# Rust line and function coverage of src/, at 100%. Needs cargo-llvm-cov
+# (`cargo install cargo-llvm-cov --locked`) and the llvm-tools-preview
+# component. Branch coverage needs a nightly compiler, so lines and
+# functions are the floor; see DEVELOPMENT.md.
+coverage-rust:
+	PYO3_PYTHON="$(PYO3_PYTHON)" RUSTFLAGS="-C link-arg=-Wl,-rpath,$(PYTHON_LIBDIR)" cargo llvm-cov --no-default-features --locked --fail-under-lines 100 --fail-under-functions 100
 
 lint:
 	cargo clippy --all-targets -- -D warnings

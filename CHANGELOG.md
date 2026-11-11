@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   batch validator (through an embedded interpreter), with every error
   message compared in full; the pure-Python fallback now counts
   towards the 100% Python coverage floor instead of being excluded.
+- Rust line and function coverage is gated at 100% by
+  `make coverage-rust` (cargo-llvm-cov), part of `make check`, and by a
+  `Rust coverage` job in `ci.yml`.
 
 ### Changed
 

@@ -2,8 +2,9 @@
 #
 # The quality gate from AGENTS.md, on every pull request into main and
 # every push to main: rustfmt, clippy with warnings denied, the Rust
-# tests on the declared MSRV and on stable, and the Python tests with
-# the 100% line and branch coverage floor against the built extension.
+# tests on the declared MSRV and on stable, Rust line and function
+# coverage at 100% (cargo-llvm-cov), and the Python tests with the 100%
+# line and branch coverage floor against the built extension.
 name: CI
 
 on:
@@ -56,6 +57,25 @@ jobs:
         run: |
           libdir="$(python3 -c 'import sysconfig; print(sysconfig.get_config_var("LIBDIR"))')"
           RUSTFLAGS="-C link-arg=-Wl,-rpath,$libdir" cargo test --no-default-features --locked
+
+  rust-coverage:
+    name: Rust coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # master
+        with:
+          toolchain: stable
+          components: llvm-tools-preview
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+      - run: cargo install cargo-llvm-cov --locked --version 0.9.1
+      - name: 100% line and function coverage (make coverage-rust)
+        run: make coverage-rust PYTHON="$(command -v python3)"
 
   python:
     name: Python ${{ matrix.python }}
