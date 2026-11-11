@@ -29,30 +29,30 @@
 
 **Getting started**
 
-- [Install](#install) — release wheels from GitHub, or a source build
-- [Requirements](#requirements) — toolchain floor, platforms
-- [Quick Start](#quick-start) — check identifiers and a batch from Python
+- [Install](#install): release wheels from GitHub, or a source build
+- [Requirements](#requirements): toolchain floor, platforms
+- [Quick Start](#quick-start): check identifiers and a batch from Python
 
 **The pain001-fast ecosystem**
 
-- [The pain001-fast ecosystem](#the-pain001-fast-ecosystem) — the core library that uses it, and the suite map
+- [The pain001-fast ecosystem](#the-pain001-fast-ecosystem): the core library that uses it, and the suite map
 
 **Library reference**
 
-- [Capabilities at a glance](#capabilities-at-a-glance) — the current surface by theme
-- [Ecosystem comparison](#ecosystem-comparison) — short matrix; full table at [`docs/COMPARISON.md`](docs/COMPARISON.md)
-- [Benchmarks](#benchmarks) — headline numbers; full table at [`docs/BENCHMARKS.md`](docs/BENCHMARKS.md)
-- [Features](#features) — module-level capability list
-- [Configuration](#configuration) — core options
-- [Examples](#examples) — runnable example index
+- [Capabilities at a glance](#capabilities-at-a-glance): the current surface by theme
+- [Ecosystem comparison](#ecosystem-comparison): short matrix; full table at [`docs/COMPARISON.md`](docs/COMPARISON.md)
+- [Benchmarks](#benchmarks): headline numbers; full table at [`docs/BENCHMARKS.md`](docs/BENCHMARKS.md)
+- [Features](#features): module-level capability list
+- [Configuration](#configuration): core options
+- [Examples](#examples): runnable example index
 
 **Operational**
 
-- [When not to use pain001-fast](#when-not-to-use-pain001-fast) — limitations
-- [Development](#development) — make targets, fuzzing, CI
-- [Security](#security) — guarantees and compliance
-- [Documentation](#documentation) — all reference docs
-- [Stability guarantees](#stability-guarantees) — SemVer axis, output stability, minimum toolchain discipline
+- [When not to use pain001-fast](#when-not-to-use-pain001-fast): limitations
+- [Development](#development): make targets, fuzzing, CI
+- [Security](#security): guarantees and compliance
+- [Documentation](#documentation): all reference docs
+- [Stability guarantees](#stability-guarantees): SemVer axis, output stability, minimum toolchain discipline
 - [License](#license)
 
 ---
