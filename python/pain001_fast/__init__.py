@@ -1,11 +1,12 @@
 # Copyright (C) 2023-2026 Pain001. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
-"""pain001-fast: High-throughput native acceleration core for ISO 20022.
+"""pain001-fast: native Rust validation for the pain001 ISO 20022 suite.
 
-This package provides native Rust bindings for high-performance financial
-validation, achieving > 50,000 tx/sec throughput for IBAN, BIC, restricted
-character set validation, and bulk payment batch analysis.
+The compiled ``_pain001_fast`` module provides IBAN, BIC and
+restricted-character-set checks and a parallel batch validator. If it
+cannot be imported, this package defines pure-Python versions of the
+same functions instead.
 """
 
 from __future__ import annotations

@@ -80,6 +80,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   and the posture section states what the extension does and does not
   do.
 
+- The README follows the canonical template (badge heights, the
+  template's build badge, a demo GIF rendered by `make demo` from
+  `.github/demo.tape`), and its claims now match the repository: musl
+  is not in the release matrix and is dropped from the platforms; the
+  per-call and throughput figures in the README, `docs/BENCHMARKS.md`
+  and `docs/COMPARISON.md` had no benchmark in the repository behind
+  them and are withdrawn; "zero allocation" now applies only to a valid
+  IBAN or BIC; capabilities are "shipped, API experimental" rather than
+  "production ready", matching the stability section. The package
+  description, `CITATION.cff` and the module docstring no longer
+  mention serialization, which the extension does not do.
+- `scripts/check_release.py` also checks that the README's install
+  snippet and release link name the current tag.
+
 ### Fixed
 
 - The pure-Python fallback, used when the compiled extension cannot be

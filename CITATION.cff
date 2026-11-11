@@ -2,11 +2,11 @@
 cff-version: 1.2.0
 message: "If you use pain001-fast in research or production write-ups, please cite it as below."
 type: software
-title: "pain001-fast: a native validation and serialization core for pain001"
+title: "pain001-fast: a native validation core for pain001"
 abstract: >-
   A native (Rust, PyO3) extension for the pain001 ISO 20022 ecosystem
-  that validates and serializes payment records at high throughput;
-  pain001's IBAN, BIC and character-set checks use it when it is
+  that validates IBANs, BICs, restricted-character-set text and
+  batches of payment records; pain001's IBAN, BIC and character-set checks use it when it is
   installed.
 authors:
   - family-names: Rousseau

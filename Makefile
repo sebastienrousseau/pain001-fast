@@ -1,7 +1,7 @@
 # Copyright (C) 2023-2026 Pain001. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
-.PHONY: all build check test coverage-rust fuzz lint doc docs-lint type versions sec format clean
+.PHONY: all build check test coverage-rust fuzz demo lint doc docs-lint type versions sec format clean
 
 all: build test
 
@@ -67,6 +67,11 @@ FUZZ_SECONDS ?= 60
 fuzz:
 	mkdir -p fuzz/target/corpus
 	cd fuzz && PYO3_PYTHON="$(PYO3_PYTHON)" RUSTFLAGS="-C link-arg=-Wl,-rpath,$(PYTHON_LIBDIR)" cargo +nightly fuzz run validators target/corpus corpus/validators -- -max_total_time=$(FUZZ_SECONDS)
+
+# Re-render .github/demo.gif from .github/demo.tape (needs vhs, ttyd and
+# ffmpeg), using the extension built into .venv.
+demo:
+	PATH="$(CURDIR)/.venv/bin:$$PATH" vhs .github/demo.tape
 
 format:
 	cargo fmt

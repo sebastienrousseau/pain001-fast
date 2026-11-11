@@ -2,11 +2,16 @@
 
 # Ecosystem Comparison
 
-Detailed performance comparison across validation backends.
+How `pain001-fast` differs from pain001's built-in Python validators,
+which pain001 uses when the extension is not installed. Each row
+describes the code, not a measurement; see
+[BENCHMARKS.md](BENCHMARKS.md) for why no timings are published.
 
-| Metric | pure-Python (Standard) | pain001-fast (Rust) | Improvement |
+| Aspect | pain001 without the extension | pain001-fast | Evidence |
 | :--- | :--- | :--- | :--- |
-| IBAN mod-97 | 1,850 ns | 22 ns | ~84x faster |
-| BIC structural check | 1,200 ns | 14 ns | ~85x faster |
-| Batch validation (10k tx) | 3,450 ms | 165 ms | ~21x faster |
-| Memory allocations / tx | ~12 objects | 0 heap allocations | Zero allocation |
+| Language | Python | Rust, bound with PyO3 | `src/` |
+| IBAN mod 97 | `int()` of the whole digit string, then `% 97` | A running remainder over the bytes, no big integer | `pain001/validation/iban_validator.py` in pain001; `src/iban.rs` |
+| IBAN and BIC buffers | Python strings | 34- and 11-byte stack buffers; a valid code allocates nothing on the heap | `src/lib.rs` `compact` |
+| Character set | Python | A 128-entry lookup table | `src/charset.rs` |
+| Batch validation | No equivalent call | `validate_payment_batch`, records validated in parallel with Rayon; reading the dicts and building the result allocate per record | `src/batch.rs` |
+| BIC country list | A subset of ISO 3166-1 | The same list | `src/bic.rs` |
