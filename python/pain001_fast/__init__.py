@@ -242,6 +242,7 @@ except ImportError:
         return ""
 
     def validate_iban_detailed(iban: str) -> tuple[bool, str]:
+        """Validate an IBAN, returning ``(True, "")`` or ``(False, reason)``."""
         if not iban:
             return False, "IBAN cannot be empty"
         clean = _clean(iban)
@@ -265,10 +266,12 @@ except ImportError:
         return True, ""
 
     def validate_iban(iban: str) -> bool:
+        """Whether ``iban`` is a valid IBAN."""
         valid, _ = validate_iban_detailed(iban)
         return valid
 
     def validate_bic_detailed(bic: str) -> tuple[bool, str]:
+        """Validate a BIC, returning ``(True, "")`` or ``(False, reason)``."""
         if not bic:
             return False, "BIC cannot be empty"
         clean = _clean(bic)
@@ -309,16 +312,20 @@ except ImportError:
         return True, ""
 
     def validate_bic(bic: str) -> bool:
+        """Whether ``bic`` is a valid BIC."""
         valid, _ = validate_bic_detailed(bic)
         return valid
 
     def find_invalid_characters(value: str) -> list[str]:
+        """The distinct characters outside the restricted set, sorted."""
         return sorted({ch for ch in value if ch not in _ALLOWED_CHARS})
 
     def is_valid_charset(value: str) -> bool:
+        """Whether every character is in the restricted Latin set."""
         return not find_invalid_characters(value)
 
     def sanitize_to_charset(value: str, replacement: str = " ") -> str:
+        """Strip accents and replace other refused characters."""
         decomposed = unicodedata.normalize("NFKD", value)
         stripped = "".join(
             ch for ch in decomposed if not unicodedata.combining(ch)
@@ -331,6 +338,7 @@ except ImportError:
         records: list[dict[str, Any]],
         message_type: str = "pain.001.001.03",
     ) -> dict[str, Any]:
+        """Validate payment records; see the extension for the fields."""
         control_sums: dict[str, float] = {}
         errors: list[dict[str, Any]] = []
         seen: set[str] = set()

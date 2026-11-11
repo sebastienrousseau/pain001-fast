@@ -26,7 +26,8 @@ pub(crate) const BIC_COUNTRIES: [[u8; 2]; 94] = [
 /// run in order and stop at the first that fails: not empty, 8 or 11
 /// characters (counted in bytes), the four parts' character classes
 /// (every fault of this step is reported together), then the country
-/// code against [`BIC_COUNTRIES`].
+/// code against the list pain001 core uses, a subset of ISO 3166-1, so
+/// a BIC from an unlisted country is refused.
 #[inline]
 pub fn validate_bic_detailed_fast(bic: &str) -> (bool, String) {
     verdict(check(bic))

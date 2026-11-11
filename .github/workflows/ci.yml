@@ -53,6 +53,8 @@ jobs:
         run: cargo fmt --all -- --check
       - name: clippy
         run: cargo clippy --all-targets --locked -- -D warnings
+      - name: rustdoc (warnings denied)
+        run: make doc
       - name: Rust tests
         run: |
           libdir="$(python3 -c 'import sysconfig; print(sysconfig.get_config_var("LIBDIR"))')"

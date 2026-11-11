@@ -7,41 +7,16 @@ The package defines Python versions of every binding for an install
 whose compiled extension cannot be imported. pain001 cannot tell the
 two apart (it imports ``pain001_fast`` and calls what it finds), so the
 fallback must give the same verdicts. These tests load the package a
-second time, under another name, with the extension blocked.
+second time, under another name, with the extension blocked (the
+``fallback`` fixture in ``conftest.py``).
 """
 
 from __future__ import annotations
 
-import importlib.util
-import sys
-from pathlib import Path
-from types import ModuleType
 from typing import Any
 
 import pain001_fast
 import pytest
-
-INIT = Path(pain001_fast.__file__)
-
-
-@pytest.fixture(scope="module")
-def fallback() -> Any:
-    """Load the package's ``__init__`` with the extension unimportable."""
-    blocked = "pain001_fast._pain001_fast"
-    saved = sys.modules.get(blocked)
-    sys.modules[blocked] = None  # type: ignore[assignment]
-    try:
-        spec = importlib.util.spec_from_file_location("_fallback", INIT)
-        assert spec is not None and spec.loader is not None
-        module: ModuleType = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-    finally:
-        if saved is None:
-            del sys.modules[blocked]
-        else:
-            sys.modules[blocked] = saved
-    assert module.validate_iban is not pain001_fast.validate_iban
-    return module
 
 
 def test_iban_valid(fallback: Any) -> None:

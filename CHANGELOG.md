@@ -39,6 +39,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   entry point's contract on arbitrary text; `make fuzz` runs it for
   `FUZZ_SECONDS`, `fuzz.yml` for two minutes on pull requests and
   weekly, and `cargo test` replays the committed seed corpus on stable.
+- API documentation gate: `#![warn(missing_docs)]` (an error under
+  clippy's `-D warnings`), `make doc` building rustdoc with warnings
+  denied in `make check` and CI, and `tests/test_api_docs.py`
+  requiring a docstring on every public Python name, from the Rust doc
+  comments or the fallback.
 - `LICENSE`, the dual-licence pointer the README's licence badge links
   to; the link was broken.
 

@@ -9,6 +9,8 @@
 //! the others are the Python bindings exported by the `_pain001_fast`
 //! module, and each is a thin call into the Rust API.
 
+#![warn(missing_docs)]
+
 use pyo3::prelude::*;
 
 mod batch;

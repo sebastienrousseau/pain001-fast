@@ -1,14 +1,14 @@
 # Copyright (C) 2023-2026 Pain001. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
-.PHONY: all build check test coverage-rust fuzz lint docs-lint type versions sec format clean
+.PHONY: all build check test coverage-rust fuzz lint doc docs-lint type versions sec format clean
 
 all: build test
 
 build:
 	uv sync --extra dev --locked
 
-check: lint type test coverage-rust versions
+check: lint doc type test coverage-rust versions
 
 type:
 	mypy python/pain001_fast
@@ -47,6 +47,11 @@ lint:
 	cargo fmt --check
 	ruff check .
 	ruff format --check python scripts tests examples
+
+# Rust API docs with every rustdoc warning denied; `#![warn(missing_docs)]`
+# in src/lib.rs makes an undocumented public item fail clippy too.
+doc:
+	RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --no-default-features --locked
 
 # Spelling (codespell, from requirements/docs-lint.txt) and Markdown
 # style (markdownlint-cli2, needs Node); the docs-lint.yml jobs.
