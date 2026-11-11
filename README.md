@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <img src=".github/demo.gif" alt="pain001-fast demo: the identifier example prints the refusal messages for a bad IBAN checksum and a bad BIC country code, then the batch example prints the IBAN and amount faults it finds in four records" width="100%" />
+  <img src="https://raw.githubusercontent.com/sebastienrousseau/pain001-fast/main/.github/demo.gif" alt="pain001-fast demo: the identifier example prints the refusal messages for a bad IBAN checksum and a bad BIC country code, then the batch example prints the IBAN and amount faults it finds in four records" width="100%" />
 </p>
 
 ---

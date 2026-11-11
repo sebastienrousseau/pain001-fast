@@ -70,3 +70,17 @@ def test_quick_start_runs() -> None:
     )
     assert block is not None, "Quick Start has no python block"
     subprocess.run([sys.executable, "-c", block[1]], check=True, timeout=60)
+
+
+def test_every_readme_image_is_an_absolute_url() -> None:
+    """PyPI does not resolve relative paths, so every image is absolute."""
+    sources = re.findall(r'(?:src|srcset)="([^"]+)"', README)
+    assert sources
+    assert all(source.startswith("https://") for source in sources), sources
+    prefix = (
+        "https://raw.githubusercontent.com/sebastienrousseau/"
+        "pain001-fast/main/"
+    )
+    tree = [s.removeprefix(prefix) for s in sources if s.startswith(prefix)]
+    assert ".github/demo.gif" in tree
+    assert all((ROOT / path).is_file() for path in tree), tree
