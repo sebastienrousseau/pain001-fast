@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   markdownlint CI job (`docs-lint.yml`, configured in
   `.markdownlint-cli2.jsonc`); fix the Markdown it flagged.
 
+### Fixed
+
+- The pure-Python fallback, used when the compiled extension cannot be
+  imported, now refuses IBANs and BICs with non-ASCII characters as
+  the extension does. It raised `ValueError` on a superscript digit,
+  accepted accented letters, and uppercased the ligature `ﬀ` into a
+  valid BIC.
+
 ## [0.0.85] - 2026-11-10
 
 ### Changed

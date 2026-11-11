@@ -58,32 +58,56 @@ except ImportError:  # pragma: no cover
         "TH", "TN", "TR", "TW", "UA", "US", "VA", "VG", "XK", "ZA",
     ])
 
+    # The extension works on ASCII bytes. str.isalpha(), isdigit(),
+    # isalnum() and upper() accept or produce non-ASCII characters
+    # (an accented letter, a superscript digit, a ligature that
+    # uppercases to two ASCII letters), so each check here also
+    # requires ASCII, and only ASCII letters are uppercased.
+    _ASCII_UPPER = str.maketrans(
+        "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    )
+
+    def _clean(value: str) -> str:
+        return (
+            value.replace(" ", "").replace("-", "").translate(_ASCII_UPPER)
+        )
+
+    def _ascii_alpha(text: str) -> bool:
+        return text.isascii() and text.isalpha()
+
+    def _ascii_digits(text: str) -> bool:
+        return text.isascii() and text.isdigit()
+
+    def _ascii_alnum(text: str) -> bool:
+        return text.isascii() and text.isalnum()
+
+    def _iban_format_error(clean: str) -> str:
+        if not _ascii_alpha(clean[:2]):
+            return "IBAN format invalid: must start with 2-letter country code"
+        if not _ascii_digits(clean[2:4]):
+            return "IBAN format invalid: characters 3-4 must be check digits (00-99)"
+        if not _ascii_alnum(clean[4:]):
+            return "IBAN format invalid: must contain only alphanumeric characters"
+        expected = _IBAN_LENGTHS.get(clean[:2])
+        if expected is not None and len(clean) != expected:
+            return f"Invalid IBAN length for {clean[:2]}: {len(clean)} characters (expected {expected})"
+        return ""
+
     def validate_iban_detailed(iban: str) -> tuple[bool, str]:
         if not iban:
             return False, "IBAN cannot be empty"
-        clean = iban.replace(" ", "").replace("-", "").upper()
+        clean = _clean(iban)
         if not 15 <= len(clean) <= 34:
             return False, f"IBAN length must be 15-34 characters (got {len(clean)})"
-        country = clean[:2]
-        if not country.isalpha():
-            return False, "IBAN format invalid: must start with 2-letter country code"
-        if not clean[2:4].isdigit():
-            return False, "IBAN format invalid: characters 3-4 must be check digits (00-99)"
-        if not clean[4:].isalnum():
-            return False, "IBAN format invalid: must contain only alphanumeric characters"
-        if country in _IBAN_LENGTHS and len(clean) != _IBAN_LENGTHS[country]:
-            return False, f"Invalid IBAN length for {country}: {len(clean)} characters (expected {_IBAN_LENGTHS[country]})"
+        error = _iban_format_error(clean)
+        if error:
+            return False, error
+        # Every character is now an ASCII letter or digit; base 36
+        # maps 0-9 to 0-9 and A-Z to 10-35, as ISO 13616 does.
         rearranged = clean[4:] + clean[:4]
-        numeric = ""
-        for char in rearranged:
-            if char.isdigit():
-                numeric += char
-            elif char.isalpha():
-                numeric += str(ord(char) - ord("A") + 10)
-            else:
-                return False, f"Invalid character in IBAN: {char}"
-        if int(numeric) % 97 != 1:
-            return False, f"IBAN checksum validation failed (mod 97 = {int(numeric) % 97}, expected 1)"
+        remainder = int("".join(str(int(ch, 36)) for ch in rearranged)) % 97
+        if remainder != 1:
+            return False, f"IBAN checksum validation failed (mod 97 = {remainder}, expected 1)"
         return True, ""
 
     def validate_iban(iban: str) -> bool:
@@ -93,20 +117,20 @@ except ImportError:  # pragma: no cover
     def validate_bic_detailed(bic: str) -> tuple[bool, str]:
         if not bic:
             return False, "BIC cannot be empty"
-        clean = bic.replace(" ", "").replace("-", "").upper()
+        clean = _clean(bic)
         if len(clean) not in (8, 11):
             return False, f"BIC must be 8 or 11 characters (got {len(clean)}: '{clean}')"
         bank = clean[:4]
         country = clean[4:6]
         loc = clean[6:8]
         branch = clean[8:11] if len(clean) == 11 else ""
-        if not bank.isalpha():
+        if not _ascii_alpha(bank):
             return False, f"BIC format invalid: bank code (first 4 chars) must be letters (got '{bank}')"
-        if not country.isalpha():
+        if not _ascii_alpha(country):
             return False, f"BIC format invalid: country code (chars 5-6) must be letters (got '{country}')"
-        if not loc.isalnum():
+        if not _ascii_alnum(loc):
             return False, f"BIC format invalid: location code (chars 7-8) must be alphanumeric (got '{loc}')"
-        if branch and not branch.isalnum():
+        if branch and not _ascii_alnum(branch):
             return False, f"BIC format invalid: branch code (chars 9-11) must be alphanumeric (got '{branch}')"
         if country not in _VALID_BIC_COUNTRIES:
             return False, f"BIC country code '{country}' is not a valid ISO 3166-1 alpha-2 code"
