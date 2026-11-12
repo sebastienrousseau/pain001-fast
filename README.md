@@ -62,11 +62,11 @@
 ### As a Python library
 
 ```bash
-pip install "git+https://github.com/sebastienrousseau/pain001-fast.git@v0.0.86"
+pip install "git+https://github.com/sebastienrousseau/pain001-fast.git@v0.0.87"
 ```
 
 This package is distributed through
-[GitHub Releases](https://github.com/sebastienrousseau/pain001-fast/releases/tag/v0.0.86),
+[GitHub Releases](https://github.com/sebastienrousseau/pain001-fast/releases/tag/v0.0.87),
 not PyPI. The command above builds from the signed source tag and needs
 Rust 1.89 or newer; to skip the build, download the wheel for your
 platform from the release and install it with `pip install <wheel>`.
@@ -255,6 +255,8 @@ IBAN and BIC checks copy at most 34 and 11 bytes into stack buffers
 whatever the input length. A cargo-fuzz target runs every entry point
 on arbitrary text in CI, and `cargo test` replays its committed corpus
 on every run. OSS-Fuzz is not set up.
+The project holds the
+[OpenSSF Best Practices passing badge](https://www.bestpractices.dev/projects/16561).
 
 Report vulnerabilities according to [`SECURITY.md`](SECURITY.md).
 
@@ -273,7 +275,7 @@ Report vulnerabilities according to [`SECURITY.md`](SECURITY.md).
 
 ## Stability guarantees
 
-Version 0.0.86, in lockstep with the pain001 suite, which this extension joined at 0.0.82 by maintainer decision. Earlier 0.0.1 and 0.0.2 tags are preserved. Releases advance together by one 0.0.1 step. This native extension remains experimental; no stable public API is promised.
+Version 0.0.87, in lockstep with the pain001 suite, which this extension joined at 0.0.82 by maintainer decision. Earlier 0.0.1 and 0.0.2 tags are preserved. Releases advance together by one 0.0.1 step. This native extension remains experimental; no stable public API is promised.
 
 Output is part of the interface: a change to what a validator accepts,
 or to the text of a message, is a behaviour change for pain001's users
