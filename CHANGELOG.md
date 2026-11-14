@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.88] - 2026-11-14
+
+### Changed
+
+- Release 0.0.88 in lockstep with the pain001 suite. Validation
+  behaviour and every error message are unchanged.
+- Suite Consistency pins the core's ecosystem check at `404ebb9`, the
+  pain001 0.0.88 release commit. Regenerated from pain001's
+  `scripts/render_ecosystem_workflows.py`.
+
 ## [0.0.87] - 2026-11-12
 
 ### Changed

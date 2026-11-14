@@ -10,9 +10,9 @@ immediately prior 0.0.x receive security fixes; older versions do not.
 
 | Version | Status | Receives security fixes? |
 | :--- | :--- | :--- |
-| `0.0.87` (latest) | Current | ✅ Yes |
-| `0.0.86` | Prior | ✅ Yes |
-| `≤ 0.0.85` | Old | ❌ No, upgrade |
+| `0.0.88` (latest) | Current | ✅ Yes |
+| `0.0.87` | Prior | ✅ Yes |
+| `≤ 0.0.86` | Old | ❌ No, upgrade |
 
 ## Reporting a vulnerability
 
