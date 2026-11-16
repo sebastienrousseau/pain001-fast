@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.89] - 2026-11-16
+
+### Changed
+
+- Release 0.0.89 in lockstep with the pain001 suite. Validation
+  behaviour and every error message are unchanged.
+
 ## [0.0.88] - 2026-11-14
 
 ### Changed
