@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import Any
 
-__version__ = "0.0.89"
+__version__ = "0.0.90"
 
 try:
     from pain001_fast._pain001_fast import (
