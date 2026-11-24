@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.91] - Unreleased
+
+### Changed
+
+- Release 0.0.91 in lockstep with the pain001 suite. Validation
+  behaviour and every error message are unchanged.
+- CI: OpenSSF Scorecard action 2.6.0, and the Suite Consistency
+  workflow pins the core's ecosystem check at its 0.0.90 tag
+  (Dependabot #17). No Rust or Python dependency changes.
+
 ## [0.0.90] - 2026-11-16
 
 ### Changed
